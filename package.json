@@ -30,5 +30,7 @@
     "viewer",
     "example"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "web-ifc": "^0.0.34"
+  }
 }
