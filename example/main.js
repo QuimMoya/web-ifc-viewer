@@ -156,19 +156,67 @@ const exportBoxButton = createSideMenuButton('./resources/file-arrow-down-solid.
 exportBoxButton.addEventListener('click', () => {
   exportBoxButton.blur();
 
+  // var obj1 = {
+  //   geometries: [new CylinderGeometry(10, 10, 10),new RingGeometry(1, 11, 10, 10)],
+  //   geometryMaterials: [new MeshBasicMaterial({
+  //     color: "red",
+  //     opacity: 1,
+  //     wireframe: true,
+  //     transparent: false
+  //   }),new MeshBasicMaterial({
+  //     color: "blue",
+  //     opacity: 1,
+  //     wireframe: true,
+  //     transparent: false
+  //   })],
+  //   ifcElementType: WebIFC.IfcWall,
+  //   ifcElementId: WebIFC.IFCWALL,
+  //   placement: new Vector3(0, 0, 20)
+  // }
+
+  // var obj2 = {
+  //   geometries: [new BoxGeometry(10, 10, 10)],
+  //   geometryMaterials: [new MeshBasicMaterial({
+  //     color: "green",
+  //     opacity: 1,
+  //     wireframe: true,
+  //     transparent: false
+  //   })],
+  //   ifcElementType: WebIFC.IfcBuildingElementProxy,
+  //   ifcElementId: WebIFC.IFCBUILDINGELEMENTPROXY,
+  //   placement: new Vector3(0, 0, 0)
+  // }
+
+  // var obj3 = {
+  //   geometries: [new RingGeometry(1, 11, 10, 10)],
+  //   geometryMaterials: [new MeshBasicMaterial({
+  //     color: "blue",
+  //     opacity: 1,
+  //     wireframe: true,
+  //     transparent: false
+  //   })],
+  //   ifcElementType: WebIFC.IfcSlab,
+  //   ifcElementId: WebIFC.IFCSLAB,
+  //   placement: new Vector3(0, 20, 0)
+  // }
+
+  var material1 =new MeshBasicMaterial({
+    color: "green",
+    opacity: 1,
+    wireframe: true,
+    transparent: false
+  })
+
+  var material2 =new MeshBasicMaterial({
+    color: "blue",
+    opacity: 1,
+    wireframe: true,
+    transparent: false
+  })
+
   var obj1 = {
     geometries: [new CylinderGeometry(10, 10, 10),new RingGeometry(1, 11, 10, 10)],
-    geometryMaterials: [new MeshBasicMaterial({
-      color: "red",
-      opacity: 1,
-      wireframe: true,
-      transparent: false
-    }),new MeshBasicMaterial({
-      color: "blue",
-      opacity: 1,
-      wireframe: true,
-      transparent: false
-    })],
+    geometryMaterials: [material1,material2],
     ifcElementType: WebIFC.IfcWall,
     ifcElementId: WebIFC.IFCWALL,
     placement: new Vector3(0, 0, 20)
@@ -176,12 +224,7 @@ exportBoxButton.addEventListener('click', () => {
 
   var obj2 = {
     geometries: [new BoxGeometry(10, 10, 10)],
-    geometryMaterials: [new MeshBasicMaterial({
-      color: "green",
-      opacity: 1,
-      wireframe: true,
-      transparent: false
-    })],
+    geometryMaterials: [material2],
     ifcElementType: WebIFC.IfcBuildingElementProxy,
     ifcElementId: WebIFC.IFCBUILDINGELEMENTPROXY,
     placement: new Vector3(0, 0, 0)
@@ -189,12 +232,7 @@ exportBoxButton.addEventListener('click', () => {
 
   var obj3 = {
     geometries: [new RingGeometry(1, 11, 10, 10)],
-    geometryMaterials: [new MeshBasicMaterial({
-      color: "blue",
-      opacity: 1,
-      wireframe: true,
-      transparent: false
-    })],
+    geometryMaterials: [material2],
     ifcElementType: WebIFC.IfcSlab,
     ifcElementId: WebIFC.IFCSLAB,
     placement: new Vector3(0, 20, 0)
