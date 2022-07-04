@@ -1,3 +1,5 @@
+import * as WebIFC from 'web-ifc';
+import { BoxGeometry, CylinderGeometry, RingGeometry, Vector3 } from 'three';
 import { IfcViewerAPI } from 'web-ifc-viewer';
 import { createSideMenuButton } from './utils/gui-creator';
 import {
@@ -9,7 +11,8 @@ import {
   Color,
   Vector2,
   DepthTexture,
-  WebGLRenderTarget } from 'three';
+  WebGLRenderTarget
+} from 'three';
 import { ClippingEdges } from 'web-ifc-viewer/dist/components/display/clipping-planes/clipping-edges';
 import Stats from 'stats.js/src/Stats';
 
@@ -86,7 +89,7 @@ const loadIfc = async (event) => {
   model = await viewer.IFC.loadIfc(event.target.files[0], false);
   // model.material.forEach(mat => mat.side = 2);
 
-  if(first) first = false
+  if (first) first = false
   else {
     ClippingEdges.forceStyleUpdate = true;
   }
@@ -147,4 +150,58 @@ const dropBoxButton = createSideMenuButton('./resources/dropbox-icon.svg');
 dropBoxButton.addEventListener('click', () => {
   dropBoxButton.blur();
   viewer.dropbox.loadDropboxIfc();
+});
+
+const exportBoxButton = createSideMenuButton('./resources/file-arrow-down-solid.svg');
+exportBoxButton.addEventListener('click', () => {
+  exportBoxButton.blur();
+
+  var obj1 = {
+    geometries: [new CylinderGeometry(10, 10, 10),new RingGeometry(1, 11, 10, 10)],
+    geometryMaterials: [new MeshBasicMaterial({
+      color: "red",
+      opacity: 1,
+      wireframe: true,
+      transparent: false
+    }),new MeshBasicMaterial({
+      color: "blue",
+      opacity: 1,
+      wireframe: true,
+      transparent: false
+    })],
+    ifcElementType: WebIFC.IfcWall,
+    ifcElementId: WebIFC.IFCWALL,
+    placement: new Vector3(0, 0, 20)
+  }
+
+  var obj2 = {
+    geometries: [new BoxGeometry(10, 10, 10)],
+    geometryMaterials: [new MeshBasicMaterial({
+      color: "green",
+      opacity: 1,
+      wireframe: true,
+      transparent: false
+    })],
+    ifcElementType: WebIFC.IfcBuildingElementProxy,
+    ifcElementId: WebIFC.IFCBUILDINGELEMENTPROXY,
+    placement: new Vector3(0, 0, 0)
+  }
+
+  var obj3 = {
+    geometries: [new RingGeometry(1, 11, 10, 10)],
+    geometryMaterials: [new MeshBasicMaterial({
+      color: "blue",
+      opacity: 1,
+      wireframe: true,
+      transparent: false
+    })],
+    ifcElementType: WebIFC.IfcSlab,
+    ifcElementId: WebIFC.IFCSLAB,
+    placement: new Vector3(0, 20, 0)
+  }
+
+  var objects = [];
+  objects.push(obj1, obj2, obj3)
+
+  viewer.IFC.loader.ifcManager.createModelForExport(new Vector3(0, 0, 0), new Vector3(0, 1, 0), objects);
 });
