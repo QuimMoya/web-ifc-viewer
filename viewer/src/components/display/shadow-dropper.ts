@@ -68,7 +68,12 @@ export class ShadowDropper {
   async renderShadow(modelID: number) {
     const model = this.context.items.ifcModels.find((model) => model.modelID === modelID);
     if (!model) throw new Error('The requested model was not found.');
-    await this.renderShadowOfMesh(model, `${model.modelID}`);
+    if (model.geometry.index != null) {
+      await this.renderShadowOfMesh(model, `${model.modelID}`);
+    }
+    else {
+      console.warn('No geometry found in the model.');
+    }
   }
 
   renderShadowOfMesh(model: Mesh, id = model.uuid) {

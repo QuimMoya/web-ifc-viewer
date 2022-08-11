@@ -1,6 +1,6 @@
 // @ts-ignore
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
-import { Matrix4 } from 'three';
+import { Matrix4, LineBasicMaterial, Vector3, BufferGeometry, Line } from 'three';
 import { IFCLoader } from 'web-ifc-three/IFCLoader';
 import { LoaderSettings } from 'web-ifc';
 import { IFCModel } from 'web-ifc-three/IFC/components/IFCModel';
@@ -94,6 +94,10 @@ export class IfcManager extends IfcComponent {
       if (onError) onError(err);
       return null;
     }
+  }
+
+  async loadAlignments() {
+    this.addAlignmentsToScene(this.loader.ifcManager.state.alignments);
   }
 
   /**
@@ -235,6 +239,78 @@ export class IfcManager extends IfcComponent {
     this.context.items.ifcModels.push(ifcMesh);
     this.context.items.pickableIfcModels.push(ifcMesh);
     this.context.getScene().add(ifcMesh);
+  }
+
+  private addAlignmentsToScene(modelAlignments: any) {
+    //create a blue LineBasicMaterial
+    let material = new LineBasicMaterial({ color: 0x0000ff, linewidth: 5 });
+    if (modelAlignments.length > 0) {
+      const alignments = modelAlignments[0];
+      for (let m = 0; m < alignments.length; m++) {
+        const alignment = alignments[m];
+        const origin = { x: 0, y: 0, z: 0 };
+        const start = { x: 0, y: 0, z: 0 };
+
+        origin.x = alignment.origin.x;
+        origin.y = alignment.origin.z;
+        origin.z = alignment.origin.y;
+
+        let finish = false;
+        for (let i = 0; i < alignment.horizontal.length; i++) {
+          for (let j = 0; j < alignment.horizontal[i].points.length; j++) {
+            start.x = alignment.horizontal[i].points[j].x - origin.x;
+            start.y = 0;
+            start.z = -(alignment.horizontal[i].points[j].y - origin.z);
+            finish = true;
+            break;
+          }
+          if (finish) { break; }
+        }
+
+        for (let i = 0; i < alignment.horizontal.length; i++) {
+          const points = [];
+          for (let j = 0; j < alignment.horizontal[i].points.length; j++) {
+            points.push(new Vector3(
+              alignment.horizontal[i].points[j].x - origin.x - start.x,
+              0,
+              -(alignment.horizontal[i].points[j].y - origin.z - start.z))
+            );
+          }
+          console.log("Horizontal ", points);
+          const geometry = new BufferGeometry().setFromPoints(points);
+
+          // // Create Tube Geometry for alignments -> requires to add reference to , TubeGeometry, CatmullRomCurve3 in three (header)
+          // var tubeGeometry = new TubeGeometry(
+          //   new CatmullRomCurve3(points),
+          //   30,// path segments
+          //   0.2,// THICKNESS
+          //   6, //Roundness of Tube
+          //   false //closed
+          // );
+          // const line = new Line(tubeGeometry, material);
+
+          const line = new Line(geometry, material);
+
+          this.context.getScene().add(line);
+        }
+
+        material = new LineBasicMaterial({ color: 0xff0000, linewidth: 5 });
+        for (let i = 0; i < alignment.vertical.length; i++) {
+          const points = [];
+          for (let j = 0; j < alignment.vertical[i].points.length; j++) {
+            points.push(new Vector3(
+              alignment.vertical[i].points[j].x,
+              alignment.vertical[i].points[j].y - origin.y,
+              start.z)
+            );
+          }
+          console.log("Vertical ", points);
+          const geometry = new BufferGeometry().setFromPoints(points);
+          const line = new Line(geometry, material);
+          this.context.getScene().add(line);
+        }
+      }
+    }
   }
 
   private setupThreeMeshBVH() {

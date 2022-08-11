@@ -84,6 +84,7 @@ const loadIfc = async (event) => {
   });
 
   model = await viewer.IFC.loadIfc(event.target.files[0], false);
+
   // model.material.forEach(mat => mat.side = 2);
 
   if(first) first = false
@@ -98,6 +99,8 @@ const loadIfc = async (event) => {
 
   overlay.classList.add('hidden');
 
+  await viewer.IFC.loadAlignments();
+  
 };
 
 const inputElement = document.createElement('input');
