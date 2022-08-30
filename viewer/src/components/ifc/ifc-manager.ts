@@ -267,6 +267,8 @@ export class IfcManager extends IfcComponent {
           if (finish) { break; }
         }
 
+        //Horizontal alignment
+
         for (let i = 0; i < alignment.horizontal.length; i++) {
           const points = [];
           for (let j = 0; j < alignment.horizontal[i].points.length; j++) {
@@ -276,7 +278,6 @@ export class IfcManager extends IfcComponent {
               -(alignment.horizontal[i].points[j].y - origin.z - start.z))
             );
           }
-          console.log("Horizontal ", points);
           const geometry = new BufferGeometry().setFromPoints(points);
 
           // // Create Tube Geometry for alignments -> requires to add reference to , TubeGeometry, CatmullRomCurve3 in three (header)
@@ -290,9 +291,10 @@ export class IfcManager extends IfcComponent {
           // const line = new Line(tubeGeometry, material);
 
           const line = new Line(geometry, material);
-
           this.context.getScene().add(line);
         }
+
+        //Vertical alignment
 
         material = new LineBasicMaterial({ color: 0xff0000, linewidth: 5 });
         for (let i = 0; i < alignment.vertical.length; i++) {
@@ -304,11 +306,67 @@ export class IfcManager extends IfcComponent {
               start.z)
             );
           }
-          console.log("Vertical ", points);
           const geometry = new BufferGeometry().setFromPoints(points);
           const line = new Line(geometry, material);
           this.context.getScene().add(line);
         }
+
+        //3D polyline
+
+        let lastx = 0;
+        let lasty = 0;
+        let length = 0;
+        material = new LineBasicMaterial({ color: 0xffdd00 });
+        for (let i = 0; i < alignment.horizontal.length; i++) {
+          const points = [];
+          for (let j = 0; j < alignment.horizontal[i].points.length; j++) {
+            let alt = 0;
+
+            if (i == 0 && j == 0) {
+              lastx = alignment.horizontal[i].points[j].x;
+              lasty = alignment.horizontal[i].points[j].y
+            }
+            const valueX = alignment.horizontal[i].points[j].x - lastx;
+            const valueY = -(alignment.horizontal[i].points[j].y - lasty);
+            lastx = alignment.horizontal[i].points[j].x;
+            lasty = alignment.horizontal[i].points[j].y;
+            length += Math.sqrt(valueX * valueX + valueY * valueY);
+            let first = true;
+            let lastAlt = 0;
+            let lastxx = 0;
+            let done = false;
+            for (let ii = 0; ii < alignment.vertical.length; ii++) {
+              for (let jj = 1; jj < alignment.vertical[ii].points.length; jj++) {
+                if (first) {
+                  first = false;
+                  alt = alignment.vertical[ii].points[jj].y;
+                }
+                if (alignment.vertical[ii].points[jj].x >= length) {
+                  const value1 = alignment.vertical[ii].points[jj].x - lastxx;
+                  const value2 = length - lastxx;
+                  const value3 = 1 - (value2 / value1);
+                  alt = (lastAlt * value3) +
+                    (alignment.vertical[ii].points[jj].y) * (1 - value3);
+                  done = true;
+                  break;
+                }
+                lastAlt = alignment.vertical[ii].points[jj].y;
+                lastxx = alignment.vertical[ii].points[jj].x;
+              }
+              if (done) { break; }
+            }
+            alt -= origin.y;
+            points.push(new Vector3(
+              alignment.horizontal[i].points[j].x - origin.x - start.x,
+              alt,
+              -(alignment.horizontal[i].points[j].y - origin.z - start.z))
+            );
+          }
+          const geometry = new BufferGeometry().setFromPoints(points);
+          const line = new Line(geometry, material);
+          this.context.getScene().add(line);
+        }
+
       }
     }
   }
