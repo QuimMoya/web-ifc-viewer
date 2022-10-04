@@ -45,6 +45,10 @@ viewer.context.renderer.postProduction.active = true;
 let first = true;
 let model;
 
+const inputElement = document.createElement('input');
+inputElement.setAttribute('type', 'file');
+inputElement.classList.add('hidden');
+
 const loadIfc = async (event) => {
 
   // tests with glTF
@@ -73,37 +77,43 @@ const loadIfc = async (event) => {
   overlay.classList.remove('hidden');
   progressText.innerText = `Loading`;
 
-  viewer.IFC.loader.ifcManager.setOnProgress((event) => {
-    const percentage = Math.floor((event.loaded * 100) / event.total);
-    progressText.innerText = `Loaded ${percentage}%`;
-  });
+  await viewer.IFC.loader.ifcManager.ifcAPI.Init();
+  console.log(viewer.IFC.loader.ifcManager.ifcAPI);
+  const model = viewer.IFC.loader.ifcManager.ifcAPI.CreateModel();
+  console.log(inputElement);
+  viewer.IFC.loader.ifcManager.ifcAPI.Serialize(inputElement.files[0], model);
 
-  viewer.IFC.loader.ifcManager.parser.setupOptionalCategories({
-    [IFCSPACE]: false,
-    [IFCOPENINGELEMENT]: false
-  });
+  // viewer.IFC.loader.ifcManager.setOnProgress((event) => {
+  //   const percentage = Math.floor((event.loaded * 100) / event.total);
+  //   progressText.innerText = `Loaded ${percentage}%`;
+  // });
 
-  model = await viewer.IFC.loadIfc(event.target.files[0], false);
+  // viewer.IFC.loader.ifcManager.parser.setupOptionalCategories({
+  //   [IFCSPACE]: false,
+  //   [IFCOPENINGELEMENT]: false
+  // });
+
+  //model = await viewer.IFC.loadIfc(event.target.files[0], false);
+  
   // model.material.forEach(mat => mat.side = 2);
 
-  if(first) first = false
-  else {
-    ClippingEdges.forceStyleUpdate = true;
-  }
+  // if(first) first = false
+  // else {
+  //   ClippingEdges.forceStyleUpdate = true;
+  // }
 
   // await createFill(model.modelID);
   // viewer.edges.create(`${model.modelID}`, model.modelID, lineMaterial, baseMaterial);
 
-  await viewer.shadowDropper.renderShadow(model.modelID);
+  // await viewer.shadowDropper.renderShadow(model.modelID);
 
   overlay.classList.add('hidden');
 
+
+
 };
 
-const inputElement = document.createElement('input');
-inputElement.setAttribute('type', 'file');
-inputElement.classList.add('hidden');
-inputElement.addEventListener('change', loadIfc, false);
+inputElement.addEventListener('change', (event) => loadIfc(event), false);
 
 const handleKeyDown = async (event) => {
   if (event.code === 'Delete') {

@@ -6,10 +6,11 @@
   "description": "A basic html example for web-ifc-viewer",
   "main": "main.js",
   "scripts": {
-    "build": "rollup -c && npm run copy-wasm && npm run copy-wasm-mt && npm run copy-worker",
+    "build": "rollup -c && npm run copy-wasm && npm run copy-wasm-mt && npm run copy-worker && npm run copy-javascript",
     "watch": "rollup -c -w",
     "copy-wasm": "cpy ../node_modules/web-ifc/web-ifc.wasm files/",
     "copy-wasm-mt": "cpy ../node_modules/web-ifc/web-ifc-mt.wasm files/",
+    "copy-javascript": "cpy ../node_modules/web-ifc/web-ifc-api-browser.js files/",
     "copy-worker": "cpy ../node_modules/web-ifc-three/IFCWorker.js files/",
     "start": "serve"
   },

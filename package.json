@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ifcjs/web-ifc-viewer.git"
-  },
+  }, 
   "scripts": {
     "init-repo": "yarn && npm run build",
     "start": "cd example && yarn start",
