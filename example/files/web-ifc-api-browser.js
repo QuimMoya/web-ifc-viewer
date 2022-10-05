@@ -5978,10 +5978,10 @@ var WebIFC = (() => {
               _setThrew(1, 0);
             }
           }
-          function invoke_vii(index, a1, a2) {
+          function invoke_iii(index, a1, a2) {
             var sp = stackSave();
             try {
-              getWasmTableEntry(index)(a1, a2);
+              return getWasmTableEntry(index)(a1, a2);
             } catch (e) {
               stackRestore(sp);
               if (e !== e + 0)
@@ -5989,10 +5989,10 @@ var WebIFC = (() => {
               _setThrew(1, 0);
             }
           }
-          function invoke_iii(index, a1, a2) {
+          function invoke_vii(index, a1, a2) {
             var sp = stackSave();
             try {
-              return getWasmTableEntry(index)(a1, a2);
+              getWasmTableEntry(index)(a1, a2);
             } catch (e) {
               stackRestore(sp);
               if (e !== e + 0)
@@ -11522,10 +11522,10 @@ var WebIFC = (() => {
               _setThrew(1, 0);
             }
           }
-          function invoke_vii(index, a1, a2) {
+          function invoke_iii(index, a1, a2) {
             var sp = stackSave();
             try {
-              getWasmTableEntry(index)(a1, a2);
+              return getWasmTableEntry(index)(a1, a2);
             } catch (e) {
               stackRestore(sp);
               if (e !== e + 0)
@@ -11533,10 +11533,10 @@ var WebIFC = (() => {
               _setThrew(1, 0);
             }
           }
-          function invoke_iii(index, a1, a2) {
+          function invoke_vii(index, a1, a2) {
             var sp = stackSave();
             try {
-              return getWasmTableEntry(index)(a1, a2);
+              getWasmTableEntry(index)(a1, a2);
             } catch (e) {
               stackRestore(sp);
               if (e !== e + 0)
@@ -55677,15 +55677,26 @@ var WebIFC = (() => {
       this.wasmModule["FS_unlink"]("/export.ifc");
       return result;
     }
-    Serialize(file, modelID) {
+    Serialize(path) {
       return __async(this, null, function* () {
-        console.log(file);
-        const res = this.wasmModule.Serialize(file, modelID);
-        return res;
+        this.wasmModule.Serialize(path);
       });
     }
-    OpenSerialized(modelID) {
-      this.wasmModule.OpenSerialized(modelID);
+    Serialize2(path, onSerialized) {
+      return __async(this, null, function* () {
+        this.wasmModule.Serialize2(path, onSerialized);
+      });
+    }
+    OpenSerialized(path, settings) {
+      let s = __spreadValues({
+        COORDINATE_TO_ORIGIN: false,
+        USE_FAST_BOOLS: false,
+        CIRCLE_SEGMENTS_LOW: 5,
+        CIRCLE_SEGMENTS_MEDIUM: 8,
+        CIRCLE_SEGMENTS_HIGH: 12,
+        BOOL_ABORT_THRESHOLD: 1e4
+      }, settings);
+      return this.wasmModule.OpenSerialized(path, s);
     }
     GetGeometry(modelID, geometryExpressID) {
       return this.wasmModule.GetGeometry(modelID, geometryExpressID);
