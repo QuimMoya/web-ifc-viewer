@@ -80,7 +80,8 @@ const loadIfc = async (event) => {
   await viewer.IFC.loader.ifcManager.ifcAPI.Init();
   console.log(viewer.IFC.loader.ifcManager.ifcAPI);
   console.log(inputElement);
-  viewer.IFC.loader.ifcManager.ifcAPI.Serialize(inputElement.files[0]);
+  //viewer.IFC.loader.ifcManager.ifcAPI.Serialize(inputElement.files[0]);
+  viewer.IFC.loader.ifcManager.ifcAPI.Serialize2(inputElement.files[0], storeFile);
 
   // viewer.IFC.loader.ifcManager.setOnProgress((event) => {
   //   const percentage = Math.floor((event.loaded * 100) / event.total);
@@ -111,6 +112,10 @@ const loadIfc = async (event) => {
 
 
 };
+
+function storeFile(data, size) {
+  
+}
 
 inputElement.addEventListener('change', (event) => loadIfc(event), false);
 
