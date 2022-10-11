@@ -5796,7 +5796,7 @@ var WebIFC = (() => {
               u8array.length = numBytesWritten;
             return u8array;
           }
-          var asmLibraryArg = { "ha": ___assert_fail, "o": ___cxa_allocate_exception, "t": ___cxa_begin_catch, "x": ___cxa_end_catch, "c": ___cxa_find_matching_catch_2, "m": ___cxa_find_matching_catch_3, "D": ___cxa_free_exception, "ba": ___cxa_rethrow, "p": ___cxa_throw, "xa": ___cxa_uncaught_exceptions, "Fa": ___emscripten_init_main_thread_js, "pa": ___emscripten_thread_cleanup, "Ea": ___pthread_create_js, "i": ___resumeException, "da": ___syscall_fcntl64, "va": ___syscall_ioctl, "wa": ___syscall_open, "Na": __embind_finalize_value_array, "Qa": __embind_finalize_value_object, "ab": __embind_register_bigint, "Ja": __embind_register_bool, "O": __embind_register_class, "N": __embind_register_class_constructor, "r": __embind_register_class_function, "Ia": __embind_register_emval, "La": __embind_register_enum, "Q": __embind_register_enum_value, "fa": __embind_register_float, "s": __embind_register_function, "C": __embind_register_integer, "w": __embind_register_memory_view, "ga": __embind_register_std_string, "W": __embind_register_std_wstring, "Oa": __embind_register_value_array, "Ma": __embind_register_value_array_element, "M": __embind_register_value_object, "Pa": __embind_register_value_object_field, "Ka": __embind_register_void, "Ga": __emscripten_notify_thread_queue, "R": __emval_as, "X": __emval_call, "oa": __emval_decref, "Xa": __emval_get_global, "Ta": __emval_get_property, "na": __emval_incref, "bb": __emval_instanceof, "Wa": __emval_is_number, "Va": __emval_new_array, "Y": __emval_new_cstring, "Ua": __emval_new_object, "Sa": __emval_run_destructors, "Ra": __emval_set_property, "E": __emval_take_value, "V": _abort, "ea": _clock_gettime, "qa": _emscripten_check_blocking_allowed, "J": _emscripten_get_now, "Aa": _emscripten_memcpy_big, "Ba": _emscripten_receive_on_main_thread_js, "ya": _emscripten_resize_heap, "Ca": _emscripten_set_canvas_element_size, "Ha": _emscripten_unwind_to_js_event_loop, "Da": _emscripten_webgl_create_context, "sa": _environ_get, "ta": _environ_sizes_get, "ia": _exit, "ca": _fd_close, "ua": _fd_read, "$a": _fd_seek, "za": _fd_write, "b": _getTempRet0, "l": invoke_di, "G": invoke_diii, "F": invoke_i, "d": invoke_ii, "P": invoke_iid, "j": invoke_iii, "k": invoke_iiii, "L": invoke_iiiii, "Z": invoke_iiiiid, "H": invoke_iiiiii, "B": invoke_iiiiiii, "ka": invoke_iiiiiiii, "_": invoke_iiiiiiiii, "$": invoke_iiiiiiiiii, "T": invoke_iiiiiiiiiiii, "Ya": invoke_iij, "Za": invoke_j, "g": invoke_v, "f": invoke_vi, "K": invoke_viddi, "I": invoke_viffiid, "h": invoke_vii, "u": invoke_viidd, "e": invoke_viii, "n": invoke_viiii, "aa": invoke_viiiid, "U": invoke_viiiidii, "A": invoke_viiiii, "z": invoke_viiiiii, "v": invoke_viiiiiii, "la": invoke_viiiiiiii, "y": invoke_viiiiiiiii, "q": invoke_viiiiiiiiii, "S": invoke_viiiiiiiiiiiiiii, "_a": invoke_vij, "ma": _llvm_eh_typeid_for, "a": wasmMemory || Module["wasmMemory"], "ja": _setTempRet0, "ra": _strftime_l };
+          var asmLibraryArg = { "ga": ___assert_fail, "o": ___cxa_allocate_exception, "t": ___cxa_begin_catch, "y": ___cxa_end_catch, "c": ___cxa_find_matching_catch_2, "m": ___cxa_find_matching_catch_3, "E": ___cxa_free_exception, "aa": ___cxa_rethrow, "q": ___cxa_throw, "xa": ___cxa_uncaught_exceptions, "Fa": ___emscripten_init_main_thread_js, "pa": ___emscripten_thread_cleanup, "Ea": ___pthread_create_js, "i": ___resumeException, "ca": ___syscall_fcntl64, "va": ___syscall_ioctl, "wa": ___syscall_open, "Na": __embind_finalize_value_array, "Qa": __embind_finalize_value_object, "ab": __embind_register_bigint, "Ja": __embind_register_bool, "M": __embind_register_class, "L": __embind_register_class_constructor, "p": __embind_register_class_function, "Ia": __embind_register_emval, "La": __embind_register_enum, "Q": __embind_register_enum_value, "ea": __embind_register_float, "s": __embind_register_function, "C": __embind_register_integer, "w": __embind_register_memory_view, "fa": __embind_register_std_string, "W": __embind_register_std_wstring, "Oa": __embind_register_value_array, "Ma": __embind_register_value_array_element, "O": __embind_register_value_object, "Pa": __embind_register_value_object_field, "Ka": __embind_register_void, "Ga": __emscripten_notify_thread_queue, "R": __emval_as, "ia": __emval_call, "oa": __emval_decref, "Xa": __emval_get_global, "Ta": __emval_get_property, "na": __emval_incref, "bb": __emval_instanceof, "Wa": __emval_is_number, "Va": __emval_new_array, "X": __emval_new_cstring, "Ua": __emval_new_object, "Sa": __emval_run_destructors, "Ra": __emval_set_property, "D": __emval_take_value, "V": _abort, "da": _clock_gettime, "qa": _emscripten_check_blocking_allowed, "K": _emscripten_get_now, "Aa": _emscripten_memcpy_big, "Ba": _emscripten_receive_on_main_thread_js, "ya": _emscripten_resize_heap, "Ca": _emscripten_set_canvas_element_size, "Ha": _emscripten_unwind_to_js_event_loop, "Da": _emscripten_webgl_create_context, "sa": _environ_get, "ta": _environ_sizes_get, "ha": _exit, "ba": _fd_close, "ua": _fd_read, "$a": _fd_seek, "za": _fd_write, "b": _getTempRet0, "l": invoke_di, "I": invoke_diii, "F": invoke_i, "d": invoke_ii, "P": invoke_iid, "j": invoke_iii, "k": invoke_iiii, "J": invoke_iiiii, "Y": invoke_iiiiid, "G": invoke_iiiiii, "B": invoke_iiiiiii, "ka": invoke_iiiiiiii, "Z": invoke_iiiiiiiii, "_": invoke_iiiiiiiiii, "T": invoke_iiiiiiiiiiii, "Ya": invoke_iij, "Za": invoke_j, "g": invoke_v, "f": invoke_vi, "N": invoke_viddi, "H": invoke_viffiid, "h": invoke_vii, "u": invoke_viidd, "e": invoke_viii, "n": invoke_viiii, "$": invoke_viiiid, "U": invoke_viiiidii, "A": invoke_viiiii, "z": invoke_viiiiii, "v": invoke_viiiiiii, "la": invoke_viiiiiiii, "x": invoke_viiiiiiiii, "r": invoke_viiiiiiiiii, "S": invoke_viiiiiiiiiiiiiii, "_a": invoke_vij, "ma": _llvm_eh_typeid_for, "a": wasmMemory || Module["wasmMemory"], "ja": _setTempRet0, "ra": _strftime_l };
           var asm = createWasm();
           var ___wasm_call_ctors = Module["___wasm_call_ctors"] = function() {
             return (___wasm_call_ctors = Module["___wasm_call_ctors"] = Module["asm"]["cb"]).apply(null, arguments);
@@ -5900,7 +5900,7 @@ var WebIFC = (() => {
           var dynCall_iiiiiijj = Module["dynCall_iiiiiijj"] = function() {
             return (dynCall_iiiiiijj = Module["dynCall_iiiiiijj"] = Module["asm"]["Kb"]).apply(null, arguments);
           };
-          var __emscripten_allow_main_runtime_queued_calls = Module["__emscripten_allow_main_runtime_queued_calls"] = 56944;
+          var __emscripten_allow_main_runtime_queued_calls = Module["__emscripten_allow_main_runtime_queued_calls"] = 57568;
           function invoke_ii(index, a1) {
             var sp = stackSave();
             try {
@@ -6296,7 +6296,6 @@ var WebIFC = (() => {
           Module["FS_unlink"] = FS.unlink;
           Module["keepRuntimeAlive"] = keepRuntimeAlive;
           Module["FS"] = FS;
-          Module["MEMFS"] = MEMFS;
           Module["PThread"] = PThread;
           Module["WORKERFS"] = WORKERFS;
           Module["PThread"] = PThread;
@@ -11383,7 +11382,7 @@ var WebIFC = (() => {
               u8array.length = numBytesWritten;
             return u8array;
           }
-          var asmLibraryArg = { "ia": ___assert_fail, "n": ___cxa_allocate_exception, "s": ___cxa_begin_catch, "w": ___cxa_end_catch, "b": ___cxa_find_matching_catch_2, "l": ___cxa_find_matching_catch_3, "C": ___cxa_free_exception, "ca": ___cxa_rethrow, "o": ___cxa_throw, "ya": ___cxa_uncaught_exceptions, "h": ___resumeException, "ea": ___syscall_fcntl64, "wa": ___syscall_ioctl, "xa": ___syscall_open, "Ga": __embind_finalize_value_array, "Ja": __embind_finalize_value_object, "na": __embind_register_bigint, "Ca": __embind_register_bool, "M": __embind_register_class, "L": __embind_register_class_constructor, "q": __embind_register_class_function, "Ba": __embind_register_emval, "Ea": __embind_register_enum, "Q": __embind_register_enum_value, "ga": __embind_register_float, "r": __embind_register_function, "B": __embind_register_integer, "v": __embind_register_memory_view, "ha": __embind_register_std_string, "V": __embind_register_std_wstring, "Ha": __embind_register_value_array, "Fa": __embind_register_value_array_element, "K": __embind_register_value_object, "Ia": __embind_register_value_object_field, "Da": __embind_register_void, "R": __emval_as, "W": __emval_call, "ra": __emval_decref, "Ra": __emval_get_global, "Na": __emval_get_property, "oa": __emval_incref, "Sa": __emval_instanceof, "Qa": __emval_is_number, "Pa": __emval_new_array, "X": __emval_new_cstring, "Oa": __emval_new_object, "Ma": __emval_run_destructors, "Ka": __emval_set_property, "D": __emval_take_value, "T": _abort, "fa": _clock_gettime, "Aa": _emscripten_memcpy_big, "U": _emscripten_resize_heap, "ta": _environ_get, "ua": _environ_sizes_get, "La": _exit, "da": _fd_close, "va": _fd_read, "ma": _fd_seek, "za": _fd_write, "a": _getTempRet0, "k": invoke_di, "F": invoke_diii, "E": invoke_i, "c": invoke_ii, "P": invoke_iid, "i": invoke_iii, "j": invoke_iiii, "J": invoke_iiiii, "_": invoke_iiiiid, "G": invoke_iiiiii, "A": invoke_iiiiiii, "Z": invoke_iiiiiiii, "$": invoke_iiiiiiiii, "aa": invoke_iiiiiiiiii, "O": invoke_iiiiiiiiiiii, "ja": invoke_iij, "ka": invoke_j, "f": invoke_v, "e": invoke_vi, "I": invoke_viddi, "H": invoke_viffiid, "g": invoke_vii, "t": invoke_viidd, "d": invoke_viii, "m": invoke_viiii, "ba": invoke_viiiid, "S": invoke_viiiidii, "z": invoke_viiiii, "y": invoke_viiiiii, "u": invoke_viiiiiii, "pa": invoke_viiiiiiii, "x": invoke_viiiiiiiii, "p": invoke_viiiiiiiiii, "N": invoke_viiiiiiiiiiiiiii, "la": invoke_vij, "qa": _llvm_eh_typeid_for, "Y": _setTempRet0, "sa": _strftime_l };
+          var asmLibraryArg = { "ha": ___assert_fail, "n": ___cxa_allocate_exception, "s": ___cxa_begin_catch, "x": ___cxa_end_catch, "b": ___cxa_find_matching_catch_2, "l": ___cxa_find_matching_catch_3, "D": ___cxa_free_exception, "ba": ___cxa_rethrow, "p": ___cxa_throw, "ya": ___cxa_uncaught_exceptions, "h": ___resumeException, "da": ___syscall_fcntl64, "wa": ___syscall_ioctl, "xa": ___syscall_open, "Ga": __embind_finalize_value_array, "Ja": __embind_finalize_value_object, "na": __embind_register_bigint, "Ca": __embind_register_bool, "K": __embind_register_class, "J": __embind_register_class_constructor, "o": __embind_register_class_function, "Ba": __embind_register_emval, "Ea": __embind_register_enum, "Q": __embind_register_enum_value, "fa": __embind_register_float, "r": __embind_register_function, "B": __embind_register_integer, "v": __embind_register_memory_view, "ga": __embind_register_std_string, "V": __embind_register_std_wstring, "Ha": __embind_register_value_array, "Fa": __embind_register_value_array_element, "M": __embind_register_value_object, "Ia": __embind_register_value_object_field, "Da": __embind_register_void, "R": __emval_as, "ia": __emval_call, "ra": __emval_decref, "Ra": __emval_get_global, "Na": __emval_get_property, "oa": __emval_incref, "Sa": __emval_instanceof, "Qa": __emval_is_number, "Pa": __emval_new_array, "W": __emval_new_cstring, "Oa": __emval_new_object, "Ma": __emval_run_destructors, "Ka": __emval_set_property, "C": __emval_take_value, "T": _abort, "ea": _clock_gettime, "Aa": _emscripten_memcpy_big, "U": _emscripten_resize_heap, "ta": _environ_get, "ua": _environ_sizes_get, "La": _exit, "ca": _fd_close, "va": _fd_read, "ma": _fd_seek, "za": _fd_write, "a": _getTempRet0, "k": invoke_di, "H": invoke_diii, "E": invoke_i, "c": invoke_ii, "P": invoke_iid, "i": invoke_iii, "j": invoke_iiii, "I": invoke_iiiii, "Z": invoke_iiiiid, "F": invoke_iiiiii, "A": invoke_iiiiiii, "Y": invoke_iiiiiiii, "_": invoke_iiiiiiiii, "$": invoke_iiiiiiiiii, "O": invoke_iiiiiiiiiiii, "ja": invoke_iij, "ka": invoke_j, "g": invoke_v, "e": invoke_vi, "L": invoke_viddi, "G": invoke_viffiid, "f": invoke_vii, "t": invoke_viidd, "d": invoke_viii, "m": invoke_viiii, "aa": invoke_viiiid, "S": invoke_viiiidii, "z": invoke_viiiii, "y": invoke_viiiiii, "u": invoke_viiiiiii, "pa": invoke_viiiiiiii, "w": invoke_viiiiiiiii, "q": invoke_viiiiiiiiii, "N": invoke_viiiiiiiiiiiiiii, "la": invoke_vij, "qa": _llvm_eh_typeid_for, "X": _setTempRet0, "sa": _strftime_l };
           var asm = createWasm();
           var ___wasm_call_ctors = Module["___wasm_call_ctors"] = function() {
             return (___wasm_call_ctors = Module["___wasm_call_ctors"] = Module["asm"]["Ua"]).apply(null, arguments);
@@ -11839,7 +11838,6 @@ var WebIFC = (() => {
           Module["FS_createDevice"] = FS.createDevice;
           Module["FS_unlink"] = FS.unlink;
           Module["FS"] = FS;
-          Module["MEMFS"] = MEMFS;
           Module["WORKERFS"] = WORKERFS;
           var calledRun;
           function ExitStatus(status) {
@@ -55687,7 +55685,7 @@ var WebIFC = (() => {
         this.wasmModule.Serialize2(path, storeSerialized);
       });
     }
-    OpenSerialized(path, settings) {
+    OpenSerialized(paths, settings) {
       let s = __spreadValues({
         COORDINATE_TO_ORIGIN: false,
         USE_FAST_BOOLS: false,
@@ -55696,7 +55694,7 @@ var WebIFC = (() => {
         CIRCLE_SEGMENTS_HIGH: 12,
         BOOL_ABORT_THRESHOLD: 1e4
       }, settings);
-      return this.wasmModule.OpenSerialized(path, s);
+      return this.wasmModule.OpenSerialized(paths, s);
     }
     GetGeometry(modelID, geometryExpressID) {
       return this.wasmModule.GetGeometry(modelID, geometryExpressID);
@@ -55733,10 +55731,6 @@ var WebIFC = (() => {
           }
         }
       });
-      if (lineObject.expressID == void 0 || lineObject.type == void 0 || lineObject.ToType === void 0) {
-        console.warn("Line object cannot be serialized: ", lineObject);
-        return;
-      }
       let rawLineData = {
         ID: lineObject.expressID,
         type: lineObject.type,

@@ -17,14 +17,56 @@
   <div id="viewer-container"></div>
   <div id="loading-overlay" class="loading-overlay">
     <input type="file" id="in-file" />
+    <button id="open-serialized">
+      Open serialized
+    </button>
     <h1 id="loading-progress" class="loading-progress"></h1>
   </div>
+  <a id="link">
+  </a>
   <script>
     const worker = new Worker("files/worker.js");
     const input = document.getElementById("in-file");
     input.onchange = () => {
       const f = input.files[0];
-      worker.postMessage([f]);
+      worker.onmessage = (data) => {
+        console.log("Dades: " + data);
+        const link = document.getElementById("link");
+        link.download = "test";
+        const blob = new Blob([data.data.data], { type: 'octet/stream' });
+        const file = new File([blob], "test");
+        link.href = URL.createObjectURL(file);
+        link.click();
+      }
+      worker.postMessage({
+        files: [f],
+        id: "Serialize"
+      });
+    }
+    const button = document.getElementById("open-serialized");
+    button.onclick = async () => {
+      const files = [];
+      let counter = 1;
+      let readingFiles = true;
+      while (readingFiles) {
+        try {
+          const name = `test${counter++}.txt`;
+          const response = await fetch("files/serialized/" + name);
+          if (!response.ok) {
+            throw new Error();
+          }
+          const data = await response.blob();
+          const file = new File([data], name);
+          files.push(file);
+        }
+        catch (e) {
+          readingFiles = false;
+        }
+      }
+      worker.postMessage({
+        files,
+        id: "Open serialized"
+      });
     }
   </script>
   <script type="module" src="./build/main.js"></script>
