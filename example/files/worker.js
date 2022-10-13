@@ -7,9 +7,10 @@ onmessage = async function (message) {
     webIfc.wasmModule.FS.mkdir("/work");
     webIfc.wasmModule.FS.mount(webIfc.wasmModule.WORKERFS, { files: message.data.files }, "/work");
     if (message.data.id === "Serialize") {
-        //webIfc.Serialize("/work/" + f.name);
         console.log("/work/" + message.data.files[0].name);
-        webIfc.Serialize2("/work/" + message.data.files[0].name, storeFile);
+        const fileOutput = message.data.files[0].name.substring(0, message.data.files[0].name.length - 4);
+        console.log("Output name: ", fileOutput);
+        webIfc.Serialize("/work/" + message.data.files[0].name, fileOutput, storeFile);
     }
     else {
         console.log("Abriendo serialización");
@@ -17,22 +18,28 @@ onmessage = async function (message) {
         for (let i = 0; i < message.data.files.length; i++) {
             vec.push_back("/work/" + message.data.files[i].name);
         }
-        webIfc.OpenSerialized(vec);
+        const settings = {
+            COORDINATE_TO_ORIGIN: false,
+            USE_FAST_BOOLS: true
+        }
+        const modelID = webIfc.OpenSerialized(vec, settings);
     }
 };
 
-function storeFile(data, size) {
+function storeFile(fileName, size) {
+    count++;
     if (size === 0) {
         const decoder = new TextDecoder("utf-8");
-        const content = webIfc.wasmModule.FS.readFile(data);
-        const newData = decoder.decode(content);
-        postMessage({ data: newData });
+        const readFile = webIfc.wasmModule.FS.readFile(fileName);
+        const content = decoder.decode(readFile);
+        const data = { content, fileName };
+        postMessage({ data: data });
     }
     else {
-        count++;
         const att = { encoding: "binary" };
-        const content = webIfc.wasmModule.FS.readFile(data, att);
-        postMessage({ data: content });
+        const content = webIfc.wasmModule.FS.readFile(fileName, att);
+        const data = { content, fileName };
+        postMessage({ data: data });
     }
 }
 

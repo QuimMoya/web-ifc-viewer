@@ -30,11 +30,11 @@
     input.onchange = () => {
       const f = input.files[0];
       worker.onmessage = (data) => {
-        console.log("Dades: " + data);
         const link = document.getElementById("link");
-        link.download = "test";
-        const blob = new Blob([data.data.data], { type: 'octet/stream' });
-        const file = new File([blob], "test");
+        link.download = data.data.data.fileName;
+        const blob = new Blob([data.data.data.content], { type: 'octet/stream' });
+        const file = new File([blob], data.data.data.fileName);
+        console.log(data.data.data.fileName);
         link.href = URL.createObjectURL(file);
         link.click();
       }
@@ -45,28 +45,33 @@
     }
     const button = document.getElementById("open-serialized");
     button.onclick = async () => {
+      const fileNames = [];
       const files = [];
-      let counter = 1;
-      let readingFiles = true;
-      while (readingFiles) {
-        try {
-          const name = `test${counter++}.txt`;
-          const response = await fetch("files/serialized/" + name);
-          if (!response.ok) {
-            throw new Error();
-          }
-          const data = await response.blob();
-          const file = new File([data], name);
-          files.push(file);
-        }
-        catch (e) {
-          readingFiles = false;
-        }
+
+      const path = 'files/serialized/';
+      for (let i = 0; i < 30; i++) {
+        fileNames.push('AA--ABA-A_001_Amsterdam ArenA_totaal_' + i + '.bin');
       }
+
+      for (let i = 0; i < fileNames.length; i++) {
+        const name = fileNames[i];
+        let response = await fetch(path + fileNames[i]);
+        if (!response.ok) {
+          throw new Error();
+        }
+        let data = await response.blob();
+        let file = new File([data], name);
+        files.push(file);
+      }
+
+      console.log(files);
+
       worker.postMessage({
         files,
         id: "Open serialized"
       });
+      const element = document.getElementById("loading-overlay");
+      element.classList.add("hidden");
     }
   </script>
   <script type="module" src="./build/main.js"></script>

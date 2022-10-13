@@ -77,35 +77,29 @@ const loadIfc = async (event) => {
   overlay.classList.remove('hidden');
   progressText.innerText = `Loading`;
 
-  await viewer.IFC.loader.ifcManager.ifcAPI.Init();
-  console.log(viewer.IFC.loader.ifcManager.ifcAPI);
-  console.log(inputElement);
-  //viewer.IFC.loader.ifcManager.ifcAPI.Serialize(inputElement.files[0]);
-  viewer.IFC.loader.ifcManager.ifcAPI.Serialize2(inputElement.files[0], storeFile);
+  viewer.IFC.loader.ifcManager.setOnProgress((event) => {
+    const percentage = Math.floor((event.loaded * 100) / event.total);
+    progressText.innerText = `Loaded ${percentage}%`;
+  });
 
-  // viewer.IFC.loader.ifcManager.setOnProgress((event) => {
-  //   const percentage = Math.floor((event.loaded * 100) / event.total);
-  //   progressText.innerText = `Loaded ${percentage}%`;
-  // });
+  viewer.IFC.loader.ifcManager.parser.setupOptionalCategories({
+    [IFCSPACE]: false,
+    [IFCOPENINGELEMENT]: false
+  });
 
-  // viewer.IFC.loader.ifcManager.parser.setupOptionalCategories({
-  //   [IFCSPACE]: false,
-  //   [IFCOPENINGELEMENT]: false
-  // });
-
-  //model = await viewer.IFC.loadIfc(event.target.files[0], false);
+  model = await viewer.IFC.loadIfc(event.target.files[0], false);
   
-  // model.material.forEach(mat => mat.side = 2);
+  model.material.forEach(mat => mat.side = 2);
 
-  // if(first) first = false
-  // else {
-  //   ClippingEdges.forceStyleUpdate = true;
-  // }
+  if(first) first = false
+  else {
+    ClippingEdges.forceStyleUpdate = true;
+  }
 
   // await createFill(model.modelID);
   // viewer.edges.create(`${model.modelID}`, model.modelID, lineMaterial, baseMaterial);
 
-  // await viewer.shadowDropper.renderShadow(model.modelID);
+  await viewer.shadowDropper.renderShadow(model.modelID);
 
   overlay.classList.add('hidden');
 
