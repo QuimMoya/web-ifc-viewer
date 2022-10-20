@@ -48163,7 +48163,7 @@ var require_web_ifc_mt = __commonJS({
         Module["dynCall_iiiiiijj"] = function() {
           return (Module["dynCall_iiiiiijj"] = Module["asm"]["Ib"]).apply(null, arguments);
         };
-        var __emscripten_allow_main_runtime_queued_calls = Module["__emscripten_allow_main_runtime_queued_calls"] = 59088;
+        var __emscripten_allow_main_runtime_queued_calls = Module["__emscripten_allow_main_runtime_queued_calls"] = 59352;
         function invoke_ii(index, a1) {
           var sp = stackSave();
           try {

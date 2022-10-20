@@ -312,7 +312,7 @@ export class IfcManager extends IfcComponent {
         }
 
         //3D polyline
-
+        console.log(alignment);
         let lastx = 0;
         let lasty = 0;
         let length = 0;
@@ -321,13 +321,12 @@ export class IfcManager extends IfcComponent {
           const points = [];
           for (let j = 0; j < alignment.horizontal[i].points.length; j++) {
             let alt = 0;
-
             if (i == 0 && j == 0) {
               lastx = alignment.horizontal[i].points[j].x;
               lasty = alignment.horizontal[i].points[j].y
             }
             const valueX = alignment.horizontal[i].points[j].x - lastx;
-            const valueY = -(alignment.horizontal[i].points[j].y - lasty);
+            const valueY = alignment.horizontal[i].points[j].y - lasty;
             lastx = alignment.horizontal[i].points[j].x;
             lasty = alignment.horizontal[i].points[j].y;
             length += Math.sqrt(valueX * valueX + valueY * valueY);
@@ -336,10 +335,15 @@ export class IfcManager extends IfcComponent {
             let lastxx = 0;
             let done = false;
             for (let ii = 0; ii < alignment.vertical.length; ii++) {
-              for (let jj = 1; jj < alignment.vertical[ii].points.length; jj++) {
+              for (let jj = 0; jj < alignment.vertical[ii].points.length; jj++) {
                 if (first) {
                   first = false;
                   alt = alignment.vertical[ii].points[jj].y;
+                  lastAlt = alignment.vertical[ii].points[jj].y;
+                  if (alignment.vertical[ii].points[jj].x >= length)
+                  {
+                    break;
+                  }
                 }
                 if (alignment.vertical[ii].points[jj].x >= length) {
                   const value1 = alignment.vertical[ii].points[jj].x - lastxx;
@@ -355,6 +359,7 @@ export class IfcManager extends IfcComponent {
               }
               if (done) { break; }
             }
+            console.log(origin);
             alt -= origin.y;
             points.push(new Vector3(
               alignment.horizontal[i].points[j].x - origin.x - start.x,
@@ -366,7 +371,6 @@ export class IfcManager extends IfcComponent {
           const line = new Line(geometry, material);
           this.context.getScene().add(line);
         }
-
       }
     }
   }
