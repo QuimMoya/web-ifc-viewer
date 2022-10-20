@@ -1,21 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="icon" type="image/png" href="./favicon.ico" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="./styles.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IFC.js</title>
-  </head>
-  <body>
-    <aside class="side-menu" id="side-menu-left"></aside>
-      <div id="viewer-container"></div>
-      <div id="loading-overlay" class="loading-overlay hidden">
-      <h1 id="loading-progress" class="loading-progress"></h1>
-    </div>
-    <script type="module" src="./build/main.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="icon" type="image/png" href="./favicon.ico" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="./styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IFC.js</title>
+</head>
+
+<body>
+  <aside class="side-menu" id="side-menu-left"></aside>
+  <div id="viewer-container"></div>
+  <div id="loading-overlay" class="loading-overlay">
+    <input type="file" id="in-file" multiple="multiple" />
+    <button id="open-serialized">
+      Open serialized
+    </button>
+    <h1 id="loading-progress" class="loading-progress"></h1>
+  </div>
+  <a id="link">
+  </a>
+  <script>
+    const worker = new Worker("files/worker.js");
+    const input = document.getElementById("in-file");
+    input.onchange = () => {
+      const list = [];
+      for (let ix = 0; ix < input.files.length; ix++) {
+        console.log(input.files[ix]);
+        const f = input.files[ix];
+        worker.onmessage = (data) => {
+          const link = document.getElementById("link");
+          link.download = data.data.data.fileName;
+          const blob = new Blob([data.data.data.content], { type: 'octet/stream' });
+          const file = new File([blob], data.data.data.fileName);
+          console.log(data.data.data.fileName);
+          link.href = URL.createObjectURL(file);
+          link.click();
+        }
+        list.push(f);
+      }
+      worker.postMessage({
+        files: list,
+        id: "Serialize"
+      });
+    }
+    const button = document.getElementById("open-serialized");
+    button.onclick = async () => {
+      const fileNames = [];
+      const files = [];
+
+      const path = 'files/serialized/';
+      for (let i = 0; i < 30; i++) {
+        fileNames.push('AA--ABA-A_001_Amsterdam ArenA_totaal_' + i + '.bin');
+      }
+
+      for (let i = 0; i < fileNames.length; i++) {
+        const name = fileNames[i];
+        let response = await fetch(path + fileNames[i]);
+        if (!response.ok) {
+          throw new Error();
+        }
+        let data = await response.blob();
+        let file = new File([data], name);
+        files.push(file);
+      }
+
+      console.log(files);
+
+      worker.postMessage({
+        files,
+        id: "Open serialized"
+      });
+      const element = document.getElementById("loading-overlay");
+      element.classList.add("hidden");
+    }
+  </script>
+  <script type="module" src="./build/main.js"></script>
+</body>
+
 </html>
